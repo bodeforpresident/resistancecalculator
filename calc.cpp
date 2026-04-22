@@ -1,57 +1,45 @@
 #include <iostream>
 #include <cmath>
+#include <vector>
+#include <numeric>
 using namespace std;
 
-// function declarations
-void tSR();
-void tPR();
+void parEq(double& resistor, vector<int>& resistors, vector<int>& resistorsOver2);
 
 int main() {
-    tSR();
-    tPR();
+    double resistor;
+    int resistorAmt;
+    int loopIt = 0;
+    
+    vector<int> resistors;
+    vector<int> resistorsOver2;
+    
+    cin >> resistorAmt;
+    
+    do {
+        cin >> resistor;
+        resistors.push_back(resistor);
+        loopIt++;
+    } while (resistorAmt > loopIt);
+    
+    double sRT = accumulate(resistors.begin(), resistors.end(), 0);
+    cout << sRT << "\n";
+    
+    if (resistorAmt == 2) {
+        double pRT = ((resistors[0]) * (resistors[1]))/(resistors[0] + resistors[1]);
+        cout << pRT;
+    } else if (resistorAmt > 2) {
+        int rec = 0;
+    
+        for (int i = 0; i < resistors.size(); i++) {
+            rec = (1 / resistors[i]);
+            resistorsOver2.push_back(rec);
+        }
+    
+        double total = (1 / accumulate(resistorsOver2.begin(), resistorsOver2.end(), 0));
+        cout << total << "\n";
+    }
 }
 
-// function definitions
-void tSR() {
-    double seriesR1, seriesR2;
-    
-    cout << "Enter your first resistor value (in Ohms): ";
-    cin >> seriesR1;
-    cout << "Enter your second resistor value (in Ohms): ";
-    cin >> seriesR2;
-
-    double tRSeries = seriesR1 + seriesR2;
-    cout << "Your total resistance is " << tRSeries << " Ohms\n";
-    
-    double sourceSeriesV;
-    cout << "Enter your source voltage (in volts): ";
-    cin >> sourceSeriesV;
-    
-    double vS1 = (seriesR1/tRSeries) * sourceSeriesV;
-    double vS2 = (seriesR2/tRSeries) * sourceSeriesV;
-    cout << "The voltage drop at resistor one is " << vS1 << "v. The voltage drop at resistor two is " << vS2 << "v\n";
-}
-
-void tPR() {
-    double parallelR1, parallelR2;
-    
-    cout << "Enter your first resistor value (in Ohms): ";
-    cin >> parallelR1;
-    cout << "Enter your second resistor value (in Ohms): ";
-    cin >> parallelR2;
-
-    double tRParallel = (parallelR1 * parallelR2)/(parallelR1 + parallelR2);    
-    cout << "Your total resistance is " << tRParallel << " Ohms\n";
-    
-    double sourceParV;
-    cout << "Enter your source voltage (in volts): ";
-    cin >> sourceParV;
-    
-    double iP1 = (parallelR1/tRParallel) * sourceParV;
-    double iP2 = (parallelR2/tRParallel) * sourceParV;
-    cout << "The current at resistor one is " << iP1 << "mA. The current at resistor two is " << iP2 << "mA\n";    
-}
-
-void vDS() {
-    
+void parEq(double& resistor, vector<int>& resistors, vector<int>& resistorsOver2) {
 }
