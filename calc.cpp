@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
+#include <numeric>
 using namespace std;
 
 double parEq(double& resistor, vector<double>& resistors); // parallel Rt function
@@ -21,11 +22,23 @@ int main() {
 	// amt input
 	cout << "how many resistors do you have?\n";
 	cin >> resistorAmt;
+	while (!resistorAmt || resistorAmt < 0) { // input val.
+	    cin.clear();
+	    cin.ignore(1000, '\n');
+	    cout << "try again\n";
+	    cin >> resistorAmt;
+	}
 
 	// resistor value input
 	do {
 		cout << "enter R" << loopIt + 1 << " in ohms\n";
 		cin >> resistor;
+		while (!resistor) { // input val.
+		    cin.clear();
+		    cin.ignore(1000, '\n');
+		    cout << "try again\n";
+		    cin >> resistor;
+		}
 		resistors.push_back(resistor);
 		loopIt++;
 	} while (resistorAmt > loopIt);
@@ -33,6 +46,12 @@ int main() {
 	// voltage input
 	cout << "enter your source voltage in volts\n";
 	cin >> sourceV;
+	while (!sourceV || sourceV < 0) { // input val
+	    cin.clear();
+	    cin.ignore(1000, '\n');
+	    cout << "try again\n";
+	    cin >> sourceV;
+	}	
 
 	cout << "\n";
 
